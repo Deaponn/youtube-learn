@@ -2,18 +2,19 @@ import { Tabs } from "expo-router";
 import HomeIcon from "@/assets/icons/home-icon.svg";
 import SearchIcon from "@/assets/icons/search-icon.svg";
 import { fontStyles } from "@/constants/FontStyles";
+import { Colors } from "@/constants/Colors";
 
 export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#2B2D42",
-        tabBarInactiveTintColor: "#FFF",
+        tabBarActiveTintColor: Colors.accent,
+        tabBarInactiveTintColor: Colors.light,
         tabBarStyle: {
-          backgroundColor: "#8D99AE",
+          backgroundColor: Colors.background,
           height: 72
         },
-        tabBarLabelStyle: fontStyles.poppinsMid,
+        tabBarLabelStyle: fontStyles.poppinsRegular16,
         headerShown: false,
       }}
     >

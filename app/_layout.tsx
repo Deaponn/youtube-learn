@@ -1,12 +1,12 @@
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-
-SplashScreen.preventAutoHideAsync();
 
 export default function LoggedInLayout() {
   const [loaded] = useFonts({
-    Poppins: require("@/assets/fonts/Poppins-Regular.ttf"),
+    PoppinsRegular: require("@/assets/fonts/Poppins-Regular.ttf"),
+    PoppinsSemiBold: require("@/assets/fonts/Poppins-SemiBold.ttf"),
   });
 
   useEffect(() => {
@@ -20,10 +20,13 @@ export default function LoggedInLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    />
+    <>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+    </>
   );
 }
