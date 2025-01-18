@@ -1,37 +1,36 @@
 import { Tabs } from "expo-router";
-import { Image } from "react-native";
-import { HapticTab } from "@/components/HapticTab";
 import HomeIcon from "@/assets/icons/home-icon.svg";
 import SearchIcon from "@/assets/icons/search-icon.svg";
+import { fontStyles } from "@/constants/FontStyles";
 
 export default function TabsLayout() {
-    return <Tabs
-    screenOptions={{
-      tabBarActiveTintColor: "#2B2D42",
-      headerShown: false,
-      tabBarButton: HapticTab,
-    //   tabBarBackground: TabBarBackground,
-    //   tabBarStyle: Platform.select({
-    //     ios: {
-    //       // Use a transparent background on iOS to show the blur effect
-    //       position: 'absolute',
-    //     },
-    //     default: {},
-    //   }),
-    }}>
-    <Tabs.Screen
-      name="index"
-      options={{
-        title: 'Home',
-        tabBarIcon: () => <HomeIcon />,
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: "#2B2D42",
+        tabBarInactiveTintColor: "#FFF",
+        tabBarStyle: {
+          backgroundColor: "#8D99AE",
+          height: 72
+        },
+        tabBarLabelStyle: fontStyles.poppinsMid,
+        headerShown: false,
       }}
-    />
-    <Tabs.Screen
-      name="search"
-      options={{
-        title: 'Search',
-        tabBarIcon: () => <SearchIcon />,
-      }}
-    />
-  </Tabs>
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color }) => <HomeIcon color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "Search",
+          tabBarIcon: ({ color }) => <SearchIcon color={color} />,
+        }}
+      />
+    </Tabs>
+  );
 }
