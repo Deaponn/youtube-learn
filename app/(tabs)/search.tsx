@@ -1,7 +1,6 @@
-import { Link } from "expo-router";
 import { Text, View, StyleSheet } from "react-native";
 
-export default function Index() {
+export default function Search() {
   return (
     <View
       style={{
@@ -10,9 +9,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Main view of the app.</Text>
-      <Link href="/video/1">View first video details</Link>
-      <Link href="/video/2">View second video details</Link>
+      <Text>Search screen.</Text>
     </View>
   );
 }
