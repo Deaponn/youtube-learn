@@ -69,7 +69,13 @@ export default function TabsLayout() {
       setVideosData(allResults);
     }
 
-    fetchVideos();
+    async function fetchMockedVideos() {
+      const allResults: AllTopics<VideoResponseData[]> = require("@/mockSearchData.json");
+      setVideosData(allResults);
+    }
+
+    // fetchVideos();
+    fetchMockedVideos();
   }, []);
 
   return (
@@ -81,6 +87,9 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: Colors.background,
           height: 72,
+        },
+        tabBarIconStyle: {
+          marginTop: 8
         },
         tabBarLabelStyle: fontStyles.poppinsRegular16,
         headerShown: false,
