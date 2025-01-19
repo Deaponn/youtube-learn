@@ -25,7 +25,7 @@ const topics: AllTopics<string> = {
   javascript: "Javascript",
 };
 
-interface VideoResponseData {
+export interface VideoResponseData {
   id: {
     videoId: string;
   };
@@ -103,7 +103,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="search/[search]"
         options={{
           title: "Search",
           tabBarIcon: ({ color }) => <SearchIcon color={color} />,

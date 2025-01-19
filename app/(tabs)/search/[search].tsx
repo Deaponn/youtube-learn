@@ -1,6 +1,9 @@
+import { useLocalSearchParams } from "expo-router";
 import { Text, View, StyleSheet } from "react-native";
 
 export default function Search() {
+  const { search } = useLocalSearchParams();
+  
   return (
     <View
       style={{
@@ -9,7 +12,7 @@ export default function Search() {
         alignItems: "center",
       }}
     >
-      <Text>Search screen.</Text>
+      <Text>Search screen. Current search: {search}</Text>
     </View>
   );
 }
