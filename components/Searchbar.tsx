@@ -1,20 +1,35 @@
 import { Colors } from "@/constants/Colors";
 import { TextInput, StyleSheet, View, ViewStyle } from "react-native";
 import SearchIcon from "@/assets/icons/search-icon.svg";
+import { fontStyles } from "@/constants/FontStyles";
 
 interface ISearchbar {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  placeholder?: string;
   rightButton?: JSX.Element;
   style?: ViewStyle;
 }
 
-export default function Searchbar({ search, setSearch, rightButton, style }: ISearchbar) {
+export default function Searchbar({
+  search,
+  setSearch,
+  placeholder,
+  rightButton,
+  style,
+}: ISearchbar) {
   return (
-    <View style={{...styles.container, ...style}}>
-      <View style={rightButton === undefined ? styles.inputContainerWide : styles.inputContainerSlim}>
+    <View style={{ ...styles.container, ...style }}>
+      <View
+        style={rightButton === undefined ? styles.inputContainerWide : styles.inputContainerSlim}
+      >
         <SearchIcon color={Colors.accent} height={24} />
-        <TextInput style={styles.input} value={search} onChangeText={(text) => setSearch(text)} />
+        <TextInput
+          placeholder={placeholder || "Search..."}
+          style={styles.input}
+          value={search}
+          onChangeText={(text) => setSearch(text)}
+        />
       </View>
       {rightButton ? rightButton : null}
     </View>
@@ -29,7 +44,7 @@ const inputContainer: ViewStyle = {
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
-  paddingLeft: 6
+  paddingLeft: 6,
 };
 
 const styles = StyleSheet.create({
@@ -39,7 +54,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   inputContainerSlim: {
     width: 297,
@@ -52,5 +67,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: Colors.accent,
+    ...fontStyles.poppinsRegular16
   },
 });

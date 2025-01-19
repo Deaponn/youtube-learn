@@ -1,24 +1,29 @@
-import { VideoResponseData } from "@/app/(tabs)/_layout";
 import { Colors } from "@/constants/Colors";
+import { fontStyles } from "@/constants/FontStyles";
 import { Link } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, ListRenderItem, StyleSheet, Text, View, ViewStyle } from "react-native";
 
-interface IHorizontalList {
+interface IHorizontalList<T> {
   title: string;
-  items: VideoResponseData[];
+  items: T[];
+  renderItem: ListRenderItem<T>;
+  keyExtractor: ((item: T, index: number) => string)
+  style?: ViewStyle;
 }
 
-export default function HorizontalList({ title, items }: IHorizontalList) {
+export default function HorizontalList<T>({ title, items, renderItem, keyExtractor, style }: IHorizontalList<T>) {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...style }}>
       <View style={styles.header}>
         <Text style={styles.headerText}>{title}</Text>
-        <Link href={`/(tabs)/search/${title}`}>{`/(tabs)/search/${title}`}</Link>
+        <Link href={`/(tabs)/search/${title}`} style={styles.showMore}>
+          Show more
+        </Link>
       </View>
       <FlatList
         data={items}
-        renderItem={({ item }) => <Text>{item.snippet.title}</Text>}
-        keyExtractor={(item) => item.id.videoId}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
         horizontal={true}
       />
     </View>
@@ -27,14 +32,23 @@ export default function HorizontalList({ title, items }: IHorizontalList) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 250
+    height: 250,
   },
   header: {
+    paddingLeft: 24,
+    paddingRight: 24,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   headerText: {
-    color: Colors.accent
-  }
-})
+    color: Colors.accent,
+    ...fontStyles.poppinsSemiBold18,
+  },
+  showMore: {
+    textDecorationLine: "underline",
+    color: Colors.accent,
+    ...fontStyles.poppinsRegular12,
+  },
+});

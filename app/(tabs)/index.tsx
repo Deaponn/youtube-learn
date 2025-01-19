@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, FlatList } from "react-native";
 import { VideosContext } from "@/app/(tabs)/_layout";
 import Searchbar from "@/components/Searchbar";
 import SettingsIcon from "@/assets/icons/settings-icon.svg";
 import HorizontalList from "@/components/HorizontalList";
+import { Colors } from "@/constants/Colors";
+import ListVideoCard from "@/components/ListVideoCard";
 
 export default function Index() {
   const videos = useContext(VideosContext);
@@ -17,15 +19,33 @@ export default function Index() {
       <Searchbar
         search={search}
         setSearch={(text) => setSearch(text)}
+        placeholder="Search videos"
         rightButton={<SettingsIcon />}
         style={{
-          marginTop: 40
+          marginTop: 40,
         }}
       />
-      <HorizontalList title={"React Native"} items={videos.reactNative} />
-      <HorizontalList title={"React"} items={videos.react} />
-      <HorizontalList title={"Typescript"} items={videos.typescript} />
-      <HorizontalList title={"Javascript"} items={videos.javascript} />
+      <FlatList
+        data={[
+          { title: "React Native", items: videos.reactNative },
+          { title: "React", items: videos.react },
+          { title: "Typescript", items: videos.typescript },
+          { title: "Javascript", items: videos.javascript },
+        ]}
+        renderItem={({ item: { title, items } }) => (
+          <HorizontalList
+            title={title}
+            items={items}
+            renderItem={(props) => <ListVideoCard {...props} />}
+            keyExtractor={(item) => item.id.videoId}
+            style={{ height: 218, marginTop: 18 }}
+          />
+        )}
+        keyExtractor={(item) => item.title}
+        ItemSeparatorComponent={() => (
+          <View style={{ width: "100%", height: 2, backgroundColor: Colors.accent }}></View>
+        )}
+      />
     </View>
   );
 }
