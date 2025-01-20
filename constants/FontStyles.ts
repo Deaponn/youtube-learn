@@ -44,5 +44,9 @@ export const fontStyles = StyleSheet.create({
   poppinsBold12: {
     fontFamily: "PoppinsBold",
     fontSize: 12
+  },
+  poppinsBold14: {
+    fontFamily: "PoppinsBold",
+    fontSize: 14
   }
 });
