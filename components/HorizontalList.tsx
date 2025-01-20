@@ -7,11 +7,17 @@ interface IHorizontalList<T> {
   title: string;
   items: T[];
   renderItem: ListRenderItem<T>;
-  keyExtractor: ((item: T, index: number) => string)
+  keyExtractor: (item: T, index: number) => string;
   style?: ViewStyle;
 }
 
-export default function HorizontalList<T>({ title, items, renderItem, keyExtractor, style }: IHorizontalList<T>) {
+export default function HorizontalList<T>({
+  title,
+  items,
+  renderItem,
+  keyExtractor,
+  style,
+}: IHorizontalList<T>) {
   return (
     <View style={{ ...styles.container, ...style }}>
       <View style={styles.header}>
@@ -25,6 +31,7 @@ export default function HorizontalList<T>({ title, items, renderItem, keyExtract
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         horizontal={true}
+        ItemSeparatorComponent={() => <View style={{ width: 24 }}></View>}
       />
     </View>
   );
@@ -35,8 +42,6 @@ const styles = StyleSheet.create({
     height: 250,
   },
   header: {
-    paddingLeft: 24,
-    paddingRight: 24,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

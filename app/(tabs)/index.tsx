@@ -36,7 +36,7 @@ export default function Index() {
           <HorizontalList
             title={title}
             items={items}
-            renderItem={(props) => <ListVideoCard {...props} />}
+            renderItem={(props) => <ListVideoCard {...props} size="small" />}
             keyExtractor={(item) => item.id.videoId}
             style={{ height: 218, marginTop: 18 }}
           />
@@ -56,5 +56,7 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingLeft: 24,
+    paddingRight: 24,
   },
 });

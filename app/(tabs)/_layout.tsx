@@ -34,7 +34,7 @@ export interface VideoResponseData {
     title: string;
     description: string;
     thumbnails: {
-      default: {
+      high: {
         url: string;
         width: number;
         height: number;
@@ -52,6 +52,7 @@ export default function TabsLayout() {
     javascript: [],
   });
 
+  // TODO: refactor this to separate hook, repetition with app/(tabs)/search/[search].tsx
   useEffect(() => {
     async function fetchVideos() {
       const allResults: AllTopics<VideoResponseData[]> = {

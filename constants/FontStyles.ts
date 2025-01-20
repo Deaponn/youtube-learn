@@ -21,6 +21,14 @@ export const fontStyles = StyleSheet.create({
     fontFamily: "PoppinsMedium",
     fontSize: 12
   },
+  poppinsSemiBold10: {
+    fontFamily: "PoppinsSemiBold",
+    fontSize: 10
+  },
+  poppinsSemiBold12: {
+    fontFamily: "PoppinsSemiBold",
+    fontSize: 12
+  },
   poppinsSemiBold16: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 16
@@ -32,5 +40,9 @@ export const fontStyles = StyleSheet.create({
   poppinsSemiBold22: {
     fontFamily: "PoppinsSemiBold",
     fontSize: 22
+  },
+  poppinsBold12: {
+    fontFamily: "PoppinsBold",
+    fontSize: 12
   }
 });

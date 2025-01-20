@@ -2,6 +2,7 @@ import { Colors } from "@/constants/Colors";
 import { TextInput, StyleSheet, View, ViewStyle } from "react-native";
 import SearchIcon from "@/assets/icons/search-icon.svg";
 import { fontStyles } from "@/constants/FontStyles";
+import { router } from "expo-router";
 
 interface ISearchbar {
   search: string;
@@ -29,6 +30,7 @@ export default function Searchbar({
           style={styles.input}
           value={search}
           onChangeText={(text) => setSearch(text)}
+          onSubmitEditing={(ev) => router.replace(`/(tabs)/search/${ev.nativeEvent.text}`)}
         />
       </View>
       {rightButton ? rightButton : null}
@@ -54,19 +56,19 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
   },
   inputContainerSlim: {
     width: 297,
     ...inputContainer,
   },
   inputContainerWide: {
-    width: 345,
+    width: "100%",
     ...inputContainer,
   },
   input: {
     flex: 1,
     color: Colors.accent,
-    ...fontStyles.poppinsRegular16
+    ...fontStyles.poppinsRegular16,
   },
 });
