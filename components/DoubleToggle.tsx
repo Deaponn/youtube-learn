@@ -10,6 +10,8 @@ interface IDoubleToggle {
   rightElement: JSX.Element;
 }
 
+// TODO: toggle animation?
+
 export default function DoubleToggle({
   leftTitle,
   rightTitle,

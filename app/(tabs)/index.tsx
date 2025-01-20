@@ -1,18 +1,39 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
-import { VideosContext } from "@/app/(tabs)/_layout";
 import Searchbar from "@/components/Searchbar";
 import SettingsIcon from "@/assets/icons/settings-icon.svg";
 import HorizontalList from "@/components/HorizontalList";
 import { Colors } from "@/constants/Colors";
 import ListVideoCard from "@/components/ListVideoCard";
+import useGetVideosList, { AllTopics } from "@/hooks/useGetVideosList";
 
 export default function Index() {
-  const videos = useContext(VideosContext);
   const [search, setSearch] = useState<string>("");
+  const [videosData, setVideosData] = useState<AllTopics>({
+    reactNative: [],
+    react: [],
+    typescript: [],
+    javascript: [],
+  });
+
+  const reactVideosLoaded = useGetVideosList("react", (results) =>
+    setVideosData((prev) => ({ ...prev, react: results }))
+  );
+  
+  const reactNativeVideosLoaded = useGetVideosList("reactNative", (results) =>
+    setVideosData((prev) => ({ ...prev, reactNative: results }))
+  );
+  
+  const typescriptVideosLoaded = useGetVideosList("typescript", (results) =>
+    setVideosData((prev) => ({ ...prev, typescript: results }))
+  );
+  
+  const javascriptVideosLoaded = useGetVideosList("javascript", (results) =>
+    setVideosData((prev) => ({ ...prev, javascript: results }))
+  );
 
   // TODO: better loader
-  if (videos.react.length === 0) return <Text>Loading...</Text>;
+  if (videosData.react.length === 0) return <Text>Loading...</Text>;
 
   return (
     <View style={styles.container}>
@@ -27,10 +48,10 @@ export default function Index() {
       />
       <FlatList
         data={[
-          { title: "React Native", items: videos.reactNative },
-          { title: "React", items: videos.react },
-          { title: "Typescript", items: videos.typescript },
-          { title: "Javascript", items: videos.javascript },
+          { title: "React Native", items: videosData.reactNative },
+          { title: "React", items: videosData.react },
+          { title: "Typescript", items: videosData.typescript },
+          { title: "Javascript", items: videosData.javascript },
         ]}
         renderItem={({ item: { title, items } }) => (
           <HorizontalList
