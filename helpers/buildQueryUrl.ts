@@ -34,6 +34,9 @@ export interface VideoResponseData {
 }
 
 export interface VideoResponse {
+  pageInfo: {
+    totalResults: number;
+  }
   items: VideoResponseData[];
 }
 

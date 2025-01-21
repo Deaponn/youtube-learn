@@ -7,16 +7,16 @@ import { fontStyles } from "@/constants/FontStyles";
 import { Colors } from "@/constants/Colors";
 import useApiRequest from "@/hooks/useApiRequest";
 import { buildVideosQuery, VideoResponse, VideoResponseData } from "@/helpers/buildQueryUrl";
+import Placeholder from "@/components/Placeholder";
 
 // TODO: add custom sorting
-// TODO: add loader
 
 export default function Search() {
   const { search } = useLocalSearchParams();
 
   const [searchPhrase, setSearchPhrase] = useState<string>(search as string);
   const [searchResults, setSearchResults] = useState<VideoResponseData[]>([]);
-  const [resultsCount, setResultsCount] = useState<number>(1157); // TODO: set searchCount dynamically
+  const [resultsCount, setResultsCount] = useState<number>(0);
 
   useEffect(() => {
     setSearchPhrase(search as string);
@@ -24,7 +24,10 @@ export default function Search() {
 
   const resultsLoaded = useApiRequest<VideoResponse>(
     buildVideosQuery(search as string),
-    (results) => setSearchResults(results.items)
+    (results) => {
+      setSearchResults(results.items);
+      setResultsCount(results.pageInfo.totalResults);
+    }
   );
 
   return (
@@ -41,21 +44,23 @@ export default function Search() {
         <Text style={{ ...fontStyles.poppinsRegular10, color: Colors.accent }}>
           {resultsCount} results found for:{" "}
         </Text>
-        <Text style={{ ...fontStyles.poppinsSemiBold10, color: Colors.accent }}>
-          "{searchPhrase}"
-        </Text>
+        <Text style={{ ...fontStyles.poppinsSemiBold10, color: Colors.accent }}>"{search}"</Text>
       </View>
       <View style={styles.sortContainer}>
         <Text style={{ ...fontStyles.poppinsRegular12, color: Colors.accent }}>Sort by: </Text>
         <Text style={{ ...fontStyles.poppinsSemiBold12, color: Colors.accent }}>Most popular</Text>
       </View>
-      <FlatList
-        data={searchResults}
-        renderItem={(props) => <ListVideoCard {...props} size="big" />}
-        keyExtractor={(item) => item.snippet.title}
-        ItemSeparatorComponent={() => <View style={{ height: 24 }}></View>}
-        style={styles.list}
-      />
+      {resultsLoaded ? (
+        <FlatList
+          data={searchResults}
+          renderItem={(props) => <ListVideoCard {...props} size="big" />}
+          keyExtractor={(item) => item.snippet.title}
+          ItemSeparatorComponent={() => <View style={{ height: 24 }}></View>}
+          style={styles.list}
+        />
+      ) : (
+        <Placeholder style={{ width: 300, height: "100%" }} />
+      )}
     </View>
   );
 }
