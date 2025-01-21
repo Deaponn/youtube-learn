@@ -5,7 +5,8 @@ import { Text, View, StyleSheet, FlatList } from "react-native";
 import ListVideoCard from "@/components/ListVideoCard";
 import { fontStyles } from "@/constants/FontStyles";
 import { Colors } from "@/constants/Colors";
-import useGetVideosList, { VideoResponseData } from "@/hooks/useGetVideosList";
+import useApiRequest from "@/hooks/useApiRequest";
+import { buildVideosQuery, VideoResponse, VideoResponseData } from "@/helpers/buildQueryUrl";
 
 // TODO: add custom sorting
 // TODO: add loader
@@ -17,13 +18,14 @@ export default function Search() {
   const [searchResults, setSearchResults] = useState<VideoResponseData[]>([]);
   const [resultsCount, setResultsCount] = useState<number>(1157); // TODO: set searchCount dynamically
 
-  const resultsLoaded = useGetVideosList(search as string, (results) =>
-    setSearchResults(results)
-  );
-
   useEffect(() => {
     setSearchPhrase(search as string);
   }, [search]);
+
+  const resultsLoaded = useApiRequest<VideoResponse>(
+    buildVideosQuery(search as string),
+    (results) => setSearchResults(results.items)
+  );
 
   return (
     <View style={styles.container}>

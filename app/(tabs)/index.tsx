@@ -5,7 +5,8 @@ import SettingsIcon from "@/assets/icons/settings-icon.svg";
 import HorizontalList from "@/components/HorizontalList";
 import { Colors } from "@/constants/Colors";
 import ListVideoCard from "@/components/ListVideoCard";
-import useGetVideosList, { AllTopics } from "@/hooks/useGetVideosList";
+import useApiRequest from "@/hooks/useApiRequest";
+import { AllTopics, buildVideosQuery, VideoResponse } from "@/helpers/buildQueryUrl";
 
 export default function Index() {
   const [search, setSearch] = useState<string>("");
@@ -16,20 +17,20 @@ export default function Index() {
     javascript: [],
   });
 
-  const reactVideosLoaded = useGetVideosList("react", (results) =>
-    setVideosData((prev) => ({ ...prev, react: results }))
+  const reactVideosLoaded = useApiRequest<VideoResponse>(buildVideosQuery("react"), (results) =>
+    setVideosData((prev) => ({ ...prev, react: results.items }))
   );
-  
-  const reactNativeVideosLoaded = useGetVideosList("reactNative", (results) =>
-    setVideosData((prev) => ({ ...prev, reactNative: results }))
+
+  const reactNativeVideosLoaded = useApiRequest<VideoResponse>(buildVideosQuery("reactNative"), (results) =>
+    setVideosData((prev) => ({ ...prev, reactNative: results.items }))
   );
-  
-  const typescriptVideosLoaded = useGetVideosList("typescript", (results) =>
-    setVideosData((prev) => ({ ...prev, typescript: results }))
+
+  const typescriptVideosLoaded = useApiRequest<VideoResponse>(buildVideosQuery("typescript"), (results) =>
+    setVideosData((prev) => ({ ...prev, typescript: results.items }))
   );
-  
-  const javascriptVideosLoaded = useGetVideosList("javascript", (results) =>
-    setVideosData((prev) => ({ ...prev, javascript: results }))
+
+  const javascriptVideosLoaded = useApiRequest<VideoResponse>(buildVideosQuery("javascript"), (results) =>
+    setVideosData((prev) => ({ ...prev, javascript: results.items }))
   );
 
   // TODO: better loader

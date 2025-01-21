@@ -1,0 +1,62 @@
+{
+    "kind": "youtube#videoListResponse",
+    "etag": "LEnhuVvGyT65v2yckFrsP3-9eVU",
+    "items": [
+        {
+            "kind": "youtube#video",
+            "etag": "RSfQHvthr3nJHIPg1I23XhUAnX0",
+            "id": "5ChkQKUzDCs",
+            "snippet": {
+                "publishedAt": "2023-09-07T17:47:46Z",
+                "channelId": "UCsBjURrPoezykLs9EqgamOA",
+                "title": "Big projects are ditching TypeScript… why?",
+                "description": "Why are some big open-source projects like Turbo and Svelte dropping TypeScript in favor of vanilla JavaScript? Learn about the pros and cons of TypeScript\n\n#programming #javascript #thecodereport \n\n💬 Chat with Me on Discord\n\nhttps://discord.gg/fireship\n\n🔗 Resources\n\nTurbo vs TypeScript https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01\nSvelte Dropping TS https://news.ycombinator.com/item?id=35892250\n\n🔥 Get More Content - Upgrade to PRO\n\nUpgrade at https://fireship.io/pro\nUse code YT25 for 25% off PRO access \n\n🎨 My Editor Settings\n\n- Atom One Dark \n- vscode-icons\n- Fira Code Font\n\n🔖 Topics Covered\n\n- TypeScript Benefits for web development\n- TS vs JS\n- Drawbacks of TypeScript\n- Did Svelte stop using TypeScript?\n- Does DHH hate TypeScript?\n- Why TypeScript sucks\n- Why TypeScript is awesome",
+                "thumbnails": {
+                    "default": {
+                        "url": "https://i.ytimg.com/vi/5ChkQKUzDCs/default.jpg",
+                        "width": 120,
+                        "height": 90
+                    },
+                    "medium": {
+                        "url": "https://i.ytimg.com/vi/5ChkQKUzDCs/mqdefault.jpg",
+                        "width": 320,
+                        "height": 180
+                    },
+                    "high": {
+                        "url": "https://i.ytimg.com/vi/5ChkQKUzDCs/hqdefault.jpg",
+                        "width": 480,
+                        "height": 360
+                    },
+                    "standard": {
+                        "url": "https://i.ytimg.com/vi/5ChkQKUzDCs/sddefault.jpg",
+                        "width": 640,
+                        "height": 480
+                    },
+                    "maxres": {
+                        "url": "https://i.ytimg.com/vi/5ChkQKUzDCs/maxresdefault.jpg",
+                        "width": 1280,
+                        "height": 720
+                    }
+                },
+                "channelTitle": "Fireship",
+                "tags": [
+                    "webdev",
+                    "app development",
+                    "lesson",
+                    "tutorial"
+                ],
+                "categoryId": "28",
+                "liveBroadcastContent": "none",
+                "localized": {
+                    "title": "Big projects are ditching TypeScript… why?",
+                    "description": "Why are some big open-source projects like Turbo and Svelte dropping TypeScript in favor of vanilla JavaScript? Learn about the pros and cons of TypeScript\n\n#programming #javascript #thecodereport \n\n💬 Chat with Me on Discord\n\nhttps://discord.gg/fireship\n\n🔗 Resources\n\nTurbo vs TypeScript https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01\nSvelte Dropping TS https://news.ycombinator.com/item?id=35892250\n\n🔥 Get More Content - Upgrade to PRO\n\nUpgrade at https://fireship.io/pro\nUse code YT25 for 25% off PRO access \n\n🎨 My Editor Settings\n\n- Atom One Dark \n- vscode-icons\n- Fira Code Font\n\n🔖 Topics Covered\n\n- TypeScript Benefits for web development\n- TS vs JS\n- Drawbacks of TypeScript\n- Did Svelte stop using TypeScript?\n- Does DHH hate TypeScript?\n- Why TypeScript sucks\n- Why TypeScript is awesome"
+                },
+                "defaultAudioLanguage": "en"
+            }
+        }
+    ],
+    "pageInfo": {
+        "totalResults": 1,
+        "resultsPerPage": 1
+    }
+}

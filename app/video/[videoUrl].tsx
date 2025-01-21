@@ -1,16 +1,46 @@
 import { Colors } from "@/constants/Colors";
 import { fontStyles } from "@/constants/FontStyles";
 import { useLocalSearchParams } from "expo-router";
-import { useRef } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, StatusBar } from "react-native";
+import { useRef, useState } from "react";
+import { Text, View, StyleSheet, TouchableOpacity, StatusBar, ScrollView } from "react-native";
 import Video, { VideoRef } from "react-native-video";
 import PersonIcon from "@/assets/icons/person-icon.svg";
 import ViewsIcon from "@/assets/icons/views-icon.svg";
 import LikesIcon from "@/assets/icons/likes-icon.svg";
 import DoubleToggle from "@/components/DoubleToggle";
+import useApiRequest from "@/hooks/useApiRequest";
+import {
+  buildVideoDetailsQuery,
+  buildVideoStatisticsQuery,
+  VideoDetailsResponse,
+  VideoStatisticsResponse,
+} from "@/helpers/buildQueryUrl";
 
 export default function VideoPlayer() {
   const { videoUrl } = useLocalSearchParams();
+
+  const [viewsCount, setViewsCount] = useState(0);
+  const [likesCount, setLikesCount] = useState(0);
+  const [videoTitle, setVideoTitle] = useState("Loading...");
+  const [description, setDescription] = useState("Loading...");
+  const [channelName, setChannelName] = useState("Loading...");
+
+  const statisticsLoaded = useApiRequest<VideoStatisticsResponse>(
+    buildVideoStatisticsQuery(videoUrl as string),
+    (results) => {
+      setViewsCount(results.items[0].statistics.viewCount);
+      setLikesCount(results.items[0].statistics.likeCount);
+    }
+  );
+
+  const detailsLoaded = useApiRequest<VideoDetailsResponse>(
+    buildVideoDetailsQuery(videoUrl as string),
+    (results) => {
+      setVideoTitle(results.items[0].snippet.title);
+      setDescription(results.items[0].snippet.description);
+      setChannelName(results.items[0].snippet.channelTitle);
+    }
+  );
 
   const videoRef = useRef<VideoRef>(null);
   const background = require("@/assets/video/broadchurch.mp4");
@@ -27,33 +57,39 @@ export default function VideoPlayer() {
         />
       </TouchableOpacity>
       <Text style={styles.title} numberOfLines={1}>
-        Video screen for vid: {videoUrl} {StatusBar.currentHeight}
+        {detailsLoaded ? videoTitle : "Loading..."}
       </Text>
       <View style={styles.channelInfo}>
         <View style={styles.channelIcon}>
           <PersonIcon color="#FFF" width={20} height={20} style={{ margin: "auto" }} />
         </View>
-        <Text style={styles.channelName}>Channel name</Text>
+        <Text style={styles.channelName}>{detailsLoaded ? channelName : "Loading..."}</Text>
       </View>
       <DoubleToggle
         leftTitle="Details"
         rightTitle="Notes"
         leftElement={
-          <View style={{ paddingLeft: 4 }}>
-            <Text style={styles.smallText}>Description</Text>
-            <Text style={styles.description}>{"description"}</Text>
-            <Text style={styles.smallText}>Statistics</Text>
-            <View style={styles.statistics}>
-              <View style={styles.statisticsTextContainer}>
-                <ViewsIcon color={Colors.light} width={20} height={20} />
-                <Text style={styles.statisticsText}>views</Text>
-              </View>
-              <View style={styles.statisticsTextContainer}>
-                <LikesIcon color={Colors.light} width={20} height={20} />
-                <Text style={styles.statisticsText}>views</Text>
+          <ScrollView>
+            <View style={{ padding: 4 }}>
+              <Text style={styles.smallText}>Description</Text>
+              <Text style={styles.description}>{detailsLoaded ? description : "Loading..."}</Text>
+              <Text style={styles.smallText}>Statistics</Text>
+              <View style={styles.statistics}>
+                <View style={styles.statisticsTextContainer}>
+                  <ViewsIcon color={Colors.light} width={20} height={20} />
+                  <Text style={styles.statisticsText}>
+                    {statisticsLoaded ? viewsCount : "Loading..."} views
+                  </Text>
+                </View>
+                <View style={styles.statisticsTextContainer}>
+                  <LikesIcon color={Colors.light} width={20} height={20} />
+                  <Text style={styles.statisticsText}>
+                    {statisticsLoaded ? likesCount : "Loading..."} likes
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
+          </ScrollView>
         }
         rightElement={<Text>Not implemented</Text>}
       />

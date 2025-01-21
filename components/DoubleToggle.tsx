@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     height: "100%",
     paddingLeft: 16,
     paddingRight: 16,
+    flex: 1,
   },
   tabPicker: {
     display: "flex",
